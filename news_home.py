@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from redis import StrictRedis
 
 app = Flask(__name__)
 
@@ -15,8 +16,10 @@ class Config():
 
 # 将配置加载到app中
 app.config.from_object(Config)
-# 将app与数据库关联
+# 将app与mysql数据库关联
 db = SQLAlchemy(app)
+# 配置redis数据库
+redis_store = StrictRedis(host="127.0.0.1",port=6379)
 
 
 @app.route("/")
