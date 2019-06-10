@@ -13,13 +13,16 @@ class Config():
     SQLALCHEMY_DATABASE_URI = "mysql://root:msql@127.0.0.1:3306/new_git"
     # 设置不跟踪数据,提高数据查询效率
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # 优化,添加redis配置
+    REDIS_HOST = "127.0.0.1"
+    REDIS_PORT = 6379
 
 # 将配置加载到app中
 app.config.from_object(Config)
 # 将app与mysql数据库关联
 db = SQLAlchemy(app)
 # 配置redis数据库
-redis_store = StrictRedis(host="127.0.0.1",port=6379)
+redis_store = StrictRedis(host=Config.REDIS_HOST,port=Config.REDIS_PORT)
 
 
 @app.route("/")
